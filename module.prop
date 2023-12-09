@@ -4,4 +4,4 @@ version=1.0
 versionCode=10
 author=andrew_z1 [4PDA]
 description=Fix LTE restrictions on non-certified (CIS) networks for Google Tensor devices.
-updateJson=https://raw.githubusercontent.com/andrewz1/pixel-mdm-patch/main/update.json
+updateJson=https://raw.githubusercontent.com/andrewz1/pixel-mdm-patch/master/update.json

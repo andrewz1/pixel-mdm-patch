@@ -1,0 +1,6 @@
+META-INF/com/google/android/update-binary
+META-INF/com/google/android/updater-script
+system/vendor/firmware/carrierconfig/placeholder
+customize.sh
+modem-patch
+module.prop
