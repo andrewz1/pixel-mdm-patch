@@ -1,7 +1,7 @@
 id=pixel-mdm-patch
 name=Pixel Modem Patch
-version=1.0
-versionCode=10
+version=1.1
+versionCode=11
 author=andrew_z1 [4PDA]
 description=Fix LTE restrictions on non-certified (CIS) networks for Google Tensor devices.
 updateJson=https://raw.githubusercontent.com/andrewz1/pixel-mdm-patch/master/update.json
