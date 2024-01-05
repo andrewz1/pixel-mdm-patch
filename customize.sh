@@ -22,8 +22,9 @@ ui_print "- CFG file state is: $CFGHASH"
 ui_print "- Note, that this module is only for SoC Google Tensor devices!"
 
 [ -f /vendor/firmware/carrierconfig/cfg.db ] || abort "configuration not found"
+rm -f $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
 cp -a /vendor/firmware/carrierconfig/cfg.db $MODPATH/system/vendor/firmware/carrierconfig/
 chmod +x $MODPATH/modem-patch
 $MODPATH/modem-patch $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
-# Sets SELinux context manually to avoid breaking on Magisk 26xxx+
 chcon u:object_r:vendor_fw_file:s0 $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
+toybox md5sum -b /system/vendor/firmware/carrierconfig/cfg.db >$MODDIR/cfg.md5

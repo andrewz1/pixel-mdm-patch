@@ -4,3 +4,4 @@ system/vendor/firmware/carrierconfig/placeholder
 customize.sh
 modem-patch
 module.prop
+post-fs-data.sh
