@@ -1,33 +1,15 @@
 if $BOOTMODE; then
-	ui_print "- Installing from Magisk app"
+	[ -f /vendor/firmware/carrierconfig/cfg.db ] || abort "- Modem configuration not found"
+	ui_print "- Installing Google Tensor Modem patch"
 else
-	ui_print "*********************************************************"
-	ui_print "! Install from recovery is NOT supported"
-	ui_print "! Please install from Magisk app"
-	abort    "*********************************************************"
+	abort "- Only Magisk is supported"
 fi
 
-CODENAME=$(getprop ro.product.vendor.device)
-BUILDID=$(getprop ro.vendor.build.id)
-MODEMVER=$(getprop gsm.version.baseband)
-CFGVER=$(cat /vendor/firmware/carrierconfig/release-label)
-CFGHASH=$(toybox sha256sum -b /vendor/firmware/carrierconfig/cfg.db)
-
-ui_print "- Magisk version is: $MAGISK_VER_CODE"
-ui_print "- Device is: $CODENAME"
-ui_print "- Build ID is: $BUILDID"
-ui_print "- Modem version is: $MODEMVER"
-ui_print "- CFG version is: $CFGVER"
-ui_print "- CFG file state is: $CFGHASH"
-ui_print "- Note, that this module is only for SoC Google Tensor devices!"
-
-[ -f /vendor/firmware/carrierconfig/cfg.db ] || abort "configuration not found"
-
+# old versions cleanup
 rm -f $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
-cp -a /vendor/firmware/carrierconfig/cfg.db $MODPATH/system/vendor/firmware/carrierconfig/
-chmod +x $MODPATH/modem-patch
-$MODPATH/modem-patch $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
-chcon u:object_r:vendor_fw_file:s0 $MODPATH/system/vendor/firmware/carrierconfig/cfg.db
+rm -f $MODPATH/cfg.md5
 
-#toybox md5sum -b /system/vendor/firmware/carrierconfig/cfg.db >$MODDIR/cfg.md5
-rm -f $MODDIR/cfg.md5
+chmod +x $MODPATH/modem-patch
+cp -a /vendor/firmware/carrierconfig/cfg.db $MODPATH/system/vendor/firmware/carrierconfig/
+$MODPATH/modem-patch $MODPATH/system/vendor/firmware/carrierconfig/cfg.db 250 255 257 400 401 282 283 289
+set_perm $MODPATH/vendor/firmware/carrierconfig/cfg.db root root 0644 u:object_r:vendor_fw_file:s0
