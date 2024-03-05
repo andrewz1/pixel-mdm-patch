@@ -1,3 +1,8 @@
+1.5
+- add MCCMNC to the log
+- add MCC to the regional_fallback
+- remove post-fs-data.sh (looks like not works as expected)
+
 1.4
 - add MCC list for modem-patch
 - add MCC for Азербайджан, Армения, Грузия
